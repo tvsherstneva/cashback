@@ -1,3 +1,4 @@
+'use strict'
 function calculateCashback(specialCategoryPurchases, otherCategoryPurchases) {
     /*specialCategoryPurchases – траты за месяц в специальных категориях (в рублях)
     specialCategoryPercent – процент кешбэка в специальных категориях (0.03 – это 3%)
