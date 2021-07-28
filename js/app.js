@@ -28,42 +28,47 @@ function calculateCashback(specialCategoryPurchases, otherCategoryPurchases) {
 
 function handleSubmit(evt) {
     evt.preventDefault();
-    const specialAmountInputEl = document.getElementById("special-amount-input");
-    const specialAmount = specialAmountInputEl.value;
-    alert(specialAmount);
-    alert(Number.isNaN(specialAmount));
-    alert(Number.isFinite(specialAmount));
-    if(Number.isNaN(specialAmount)){
-        //TODO: вывод ошибки
-        return;
-    }
-    if(!Number.isFinite(specialAmount)){//Number.isFinite – если true то это бесконечность(ввод символов без чисел)
-        //TODO: вывод ошибки
 
-        return;
-    }
-    const otherAmountInputEl = document.getElementById("other-amount-input");
-    const otherAmount = otherAmountInputEl.value;
-    if(Number.isNaN(otherAmount)){
-        //TODO: вывод ошибки
-        return;
-    }
-    if(!Number.isFinite(otherAmount)){
-        //TODO: вывод ошибки
-        return;
-    }
-
-    const result = calculateCashback(specialAmount,otherAmount);
+    const specialAmountInputEl = document.getElementById('special-amount-input');
+    const otherAmountInputEl = document.getElementById('other-amount-input');
+    const specialAmountErrorEl = document.getElementById('special-amount-error');
+    const otherAmountErrorEl = document.getElementById('other-amount-error');
     const specialCashbackEl = document.getElementById('special-cashback');
+    const otherCashbackEl = document.getElementById('other-cashback');
+    const totalCashbackEl = document.getElementById('total-cashback');
+
+    specialAmountErrorEl.textContent = '';
+    otherAmountErrorEl.textContent = '';
+    specialCashbackEl.textContent = '';
+    otherCashbackEl.textContent = '';
+    totalCashbackEl.textContent = '';
+
+    const specialAmount = Number(specialAmountInputEl.value);
+    if (Number.isNaN(specialAmount)) {
+        specialAmountErrorEl.textContent = ` Неверное значение. Введите число, например 10000`;
+        return;
+    }
+    if (!Number.isFinite(specialAmount)) {//Number.isFinite – если true то это бесконечность(ввод символов без чисел)
+        alert(Number.isFinite(specialAmount));
+        specialAmountErrorEl.textContent = ` Слишком большое значение. Введите число, например: 10000`;
+        return;
+    }
+
+    const otherAmount = Number(otherAmountInputEl.value);
+    if (Number.isNaN(otherAmount)) {
+        otherAmountErrorEl.textContent = ` Неверное значение. Введите число, например 10000`;
+        return;
+    }
+    if (!Number.isFinite(otherAmount)) {
+        otherAmountErrorEl.textContent = ` Слишком большое значение. Введите число, например: 10000`;
+        return;
+    }
+
+    const result = calculateCashback(specialAmount, otherAmount);
     specialCashbackEl.textContent = ` ${result.specialCategoryCashback} руб.`;
 
-    const otherCashbackEl = document.getElementById('other-cashback');
     otherCashbackEl.textContent = ` ${result.otherCategoryCashback} руб.`;
-
-    const totalCashbackEl = document.getElementById('total-cashback');
     totalCashbackEl.textContent = ` ${result.totalCashback} руб.`;
-
-
     ///debugger;
 }
 
